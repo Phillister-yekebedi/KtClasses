@@ -1,13 +1,23 @@
 import java.sql.RowIdLifetime
 
+
 fun main() {
     var product1 = Product("Bairo", 21, 12)
     var product2 = Product("pencil", 20, 2 )
 
     var Wolf = Wildlife("wolf","carnovorous", 30, "summer")
     var giraffe = Wildlife("giraffe", "herbivorer", 20, "summer")
-    Wolf.hunt
-    giraffe.hunted
+
+
+    var stories =AncestralStory("born a crim","hardworkpay","youth",)
+    var story = Story("child in the forest", 30, "Children", "life can change you")
+    story.folkTaleStory()
+    var storyteller = StoryTeller("Gloria", "youth", "the value of friendship", "pride and prejudices")
+    storyteller.tellstory()
+    var translator = Translator("Kishwahili", "Adult", "the man of the house", "train your child")
+    translator.translate(story)
+//    Wolf.hunt
+//    giraffe.hunted
 }
 
 
@@ -18,6 +28,34 @@ fun main() {
 //Think about how you would model `Story`, `StoryTeller`, and `Translator`
 //objects, and how inheritance might come into play if there are different types of
 //stories or storytellers.
+
+open class AncestralStory(val storytitle: String, val moralLesson: String, val ageGroup: String) {
+    open fun folkTaleStory() {
+        println("A very interesting story for $ageGroup is called $storytitle")
+    }
+}
+class Story (storytitle: String, var length: Int, ageGroup: String, moralLesson: String):AncestralStory(storytitle, moralLesson, ageGroup) {
+    override fun folkTaleStory() {
+        super.folkTaleStory()
+        println("This story $storytitle teaches $ageGroup a good $moralLesson")
+    }
+}
+class StoryTeller(var name: String,ageGroup: String,moralLesson: String,storytitle: String):AncestralStory(storytitle,moralLesson,ageGroup) {
+    fun tellstory() {
+        println("My name is $name, and I tell mostly story for $ageGroup ")
+    }
+}
+
+class Translator( var Languages: String,ageGroup: String,moralLesson: String,storytitle: String ): AncestralStory(storytitle, moralLesson,ageGroup) {
+    fun translate(story: Story): Story {
+        println("Translating the story '${story. storytitle}' from $Languages to any languages that fit and $ageGroup")
+        return story
+    }
+}
+
+
+
+
 
 //2. **African Cuisine:** You're creating a recipe app specifically for African cuisine.
 //The app needs to handle recipes from different African countries, each with its
